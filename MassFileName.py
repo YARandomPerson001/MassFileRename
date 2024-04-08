@@ -18,12 +18,14 @@ if __name__ == "__main__":
     for index in range(1, len(sys.argv)):
         Flag = False
         
-        for cmd in CommandList:
+        for cmd in CommandList[3]:
             if sys.argv[index] == cmd:
                 
                 ## Todo: Print Command List
                 
                 Flag = True
-        
+
         if not Flag: Arguments.append(sys.argv[index])
+        
+    print(len(Arguments))
     pass
