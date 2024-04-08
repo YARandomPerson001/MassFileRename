@@ -7,9 +7,12 @@ Directory = "./"
 SelectedWord = ""
 ReplacmentWord = ""
 
+Threads = 1
+
 CommandList = [ ['-d', '-dir', '--d', '--dir'],
                 ['-p', '-part', '--p', '--part'],
                 ['-r', '-replace', '--r', '--replace'],
+                ['-t', '-threads', '--t', '--threads'],
                 ['-h', '-help', '--h', '--help'] ]
 
 ValueList = [ ['-e', '-empty', '--e', '--empty'] ]
@@ -25,7 +28,7 @@ if __name__ == "__main__":
         for index in range(1, len(sys.argv)):
             Flag = False
             
-            for cmd in CommandList[3]:
+            for cmd in CommandList[4]:
                 if sys.argv[index] == cmd:
                     
                     ## Todo: Print Command List
@@ -45,6 +48,9 @@ if __name__ == "__main__":
             for cmd in CommandList[2]:
                 if Arguments[index - 1] == cmd:
                     ReplacmentWord = Arguments[index]
+            for cmd in CommandList[3]:
+                if Arguments[index - 1] == cmd:
+                    Threads = Arguments[index]
                     
         # Make all empty flag to into empty strings
         for cmd in ValueList[0]:
