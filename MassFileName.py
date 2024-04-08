@@ -3,7 +3,7 @@ import os, sys
 
 Arguments = [ ]
 
-Directory = ""
+Directory = "./"
 SelectedWord = ""
 ReplacmentWord = ""
 
@@ -53,6 +53,17 @@ if __name__ == "__main__":
             if SelectedWord == cmd:
                 SelectedWord = ""
             if Directory == cmd:
-                Directory = ""
-                
+                Directory = "./"
+        
+    # Check if the user wants to proceed.
+    for f in os.scandir(Directory): print(f.path)
+    
+    Proceed = input("Do you wish to proceed? (Yes) | (No): ")
+    if(Proceed.lower() == "yes" or Proceed.lower() == 'y'):
+        for f in os.scandir(Directory):
+            if SelectedWord in f.path:
+                Name = f.path.replace(SelectedWord, ReplacmentWord)
+                os.rename(f.path, Name)
+    else:
+        exit(-1)
     
