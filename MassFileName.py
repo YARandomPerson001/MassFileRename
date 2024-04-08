@@ -17,9 +17,10 @@ CommandList = [ ['-d', '-dir', '--d', '--dir'],
 
 ValueList = [ ['-e', '-empty', '--e', '--empty'] ]
 
-CommandDescription = [ "The path the mass rename!",
+CommandDescription = [ "The directory the mass rename!",
                        "The word to replace.",
-                       "The word to replace with."
+                       "The word to replace with.",
+                       "The amont of thread to work with.",
                        "The command list!" ]
 
 if __name__ == "__main__":
@@ -30,8 +31,12 @@ if __name__ == "__main__":
             
             for cmd in CommandList[4]:
                 if sys.argv[index] == cmd:
-                    
-                    ## Todo: Print Command List
+                    print("\033[1;32m" + "|Command List|" + "\033[0m")
+                    print("\033[37m" + str(CommandList[0]) +  "\t\033[1:37m" + str(CommandDescription[0]) + "\033[0m")
+                    print("\033[37m" + str(CommandList[1]) +  "\t\033[1:37m" + str(CommandDescription[1]) + "\033[0m")
+                    print("\033[37m" + str(CommandList[2]) +  "\t\033[1:37m" + str(CommandDescription[2]) + "\033[0m")
+                    print("\033[37m" + str(CommandList[3]) +  "\t\033[1:37m" + str(CommandDescription[3]) + "\033[0m")
+                    print("\033[37m" + str(CommandList[4]) +  "\t\033[1:37m" + str(CommandDescription[4]) + "\033[0m\n")
                     
                     Flag = True
 
@@ -60,9 +65,21 @@ if __name__ == "__main__":
                 SelectedWord = ""
             if Directory == cmd:
                 Directory = "./"
+                
+    # Make sure threads make sense
+    if int(Threads) < 1: Threads = 8  
+        
         
     # Check if the user wants to proceed.
+    print("\033[1;32m" + "|List of files to rename|" + "\033[0m")
     for f in os.scandir(Directory): print(f.path)
+    
+    # Get the value that are going to be used.
+    print("\n\033[1;32m" + "|Values|" + "\033[0m")
+    print("\033[37m" + "Word: " + "\033[0m" + SelectedWord)
+    print("\033[37m" + "Replacement: " + "\033[0m" + ReplacmentWord)
+    print("\033[37m" + "Directory: " + "\033[0m" + Directory)
+    print("\033[37m" + "Threads: " + "\033[0m" + str(Threads))
     
     Proceed = input("Do you wish to proceed? (Yes) | (No): ")
     if(Proceed.lower() == "yes" or Proceed.lower() == 'y'):
