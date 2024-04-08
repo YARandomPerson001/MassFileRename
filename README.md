@@ -1,2 +1,2 @@
 # MassFileRename
-A script to mass rename file in a directory.
+A script to mass rename files in a directory.
