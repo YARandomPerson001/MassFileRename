@@ -7,17 +7,21 @@ Directory = "./"
 SelectedWord = ""
 ReplacmentWord = ""
 
+AutoYes = False
+
 CommandList = [ ['-d', '-dir', '--d', '--dir'],
                 ['-p', '-part', '--p', '--part'],
                 ['-r', '-replace', '--r', '--replace'],
                 ['-h', '-help', '--h', '--help'],
-                ['-e', '-empty', '--e', '--empty'] ]
+                ['-e', '-empty', '--e', '--empty'], 
+                ['-y', '-yes', '--y', '--yes'] ] 
 
 CommandDescription = [ "The directory the mass rename!",
                        "The word to replace.",
                        "The word to replace with.",
                        "The command list!",
-                       "Set to empty text."]
+                       "Set to empty text.",
+                       "For a automatic yes."]
 
 if __name__ == "__main__":
     # Loop though commands.
@@ -31,6 +35,12 @@ if __name__ == "__main__":
         for cmd in CommandList[2]:
             if sys.argv[index - 1] == cmd:
                 ReplacmentWord = sys.argv[index]
+
+    # Loop for yes
+    for arg in sys.argv:
+        for cmd in CommandList[5]:
+            if arg == cmd:
+                AutoYes = True
     
     # Loop though help commands.
     for arg in sys.argv:
@@ -60,8 +70,12 @@ if __name__ == "__main__":
     print("\033[37m" + "Replacement: " + "\033[0m" + ReplacmentWord)
     print("\033[37m" + "Directory: " + "\033[0m" + Directory + "\n")
     
-    Proceed = input("Do you wish to proceed? (Yes) | (No): ")
-    if(Proceed.lower() == "yes" or Proceed.lower() == 'y'):
+    Proceed = ""
+    
+    if not AutoYes:
+        Proceed = input("Do you wish to proceed? (Yes) | (No): ")
+        
+    if(Proceed.lower() == "yes" or Proceed.lower() == 'y' or AutoYes):
         for f in os.scandir(Directory):
             if SelectedWord in f.path:
                 Name = f.name.replace(SelectedWord, ReplacmentWord)
